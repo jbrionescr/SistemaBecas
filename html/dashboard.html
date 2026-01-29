@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Alas al Futuro</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="mouse-glow"></div>
+    <nav class="dashboard-nav">
+        <div class="container nav-content">
+            <div class="nav-brand">
+                <img src="../assets/logo.png" alt="Logo" class="nav-logo">
+                Alas al Futuro
+            </div>
+            <div class="nav-user">
+                <a href="profile.html" class="btn btn-sm btn-outline">Mi Perfil</a>
+                <a href="contact.html" class="btn btn-sm btn-outline">Contacto</a>
+                <span id="userName" style="font-weight: 600; margin: 0 0.5rem;">Cargando...</span>
+                <span id="userRole" class="badge" style="background: var(--p-50); color: var(--p-700);">Role</span>
+                <button id="logoutBtn" class="btn btn-sm btn-outline" style="color: var(--danger)">Cerrar
+                    Sesión</button>
+            </div>
+        </div>
+    </nav>
+    <div class="extra-blob"></div>
+
+    <main class="container">
+        <!-- ROLE VIEWS -->
+        <div id="adminView" class="hidden">
+            <div class="view-header">
+                <h2>Gestión Administrativa</h2>
+                <button class="btn btn-primary" id="newScholarshipBtn">Nueva Beca</button>
+            </div>
+            <div class="grid-stats">
+                <div class="stat-card">
+                    <h3>Becas Activas</h3>
+                    <p id="statBecas">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Postulaciones</h3>
+                    <p id="statPostulaciones">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Presupuesto Total</h3>
+                    <p id="statPresupuesto">$0.00</p>
+                </div>
+            </div>
+
+            <section class="section">
+                <h3>Resumen de Postulaciones (Reportes)</h3>
+                <div id="adminReports" class="data-table"></div>
+            </section>
+
+            <section class="section">
+                <h3>Control Total de Postulaciones</h3>
+                <div id="adminApplicationsList" class="data-table"></div>
+            </section>
+
+            <section class="section" style="margin-top: 3rem;">
+                <div class="view-header">
+                    <h2>Buzón de Consultas</h2>
+                    <p class="text-muted">Mensajes y comentarios enviados por los estudiantes.</p>
+                </div>
+                <div id="adminMessagesList" class="data-table"></div>
+            </section>
+
+            <section class="section">
+                <h3>Becas Disponibles</h3>
+                <div id="adminBecasList" class="data-table"></div>
+            </section>
+
+            <section class="section">
+                <h3>Gestión de Evaluadores</h3>
+                <div id="evaluatorManagement"></div>
+            </section>
+
+            <section class="section">
+                <h3>Registro de Auditoría (Trazabilidad)</h3>
+                <div id="auditLogs" class="data-table" style="max-height: 400px; overflow-y: auto;"></div>
+            </section>
+        </div>
+
+        <div id="evaluatorView" class="hidden">
+            <div class="view-header">
+                <h2>Panel de Evaluación</h2>
+            </div>
+            <section class="section">
+                <h3>Postulaciones por Evaluar</h3>
+                <div id="evaluatorList" class="data-table"></div>
+            </section>
+        </div>
+
+        <div id="studentView" class="hidden">
+            <div class="view-header">
+                <h2>Mi Perfil de Postulante</h2>
+            </div>
+            <section class="section">
+                <h3>Becas Disponibles</h3>
+                <div id="availableBecasList" class="grid-cards"></div>
+            </section>
+            <section class="section">
+                <h3>Mis Postulaciones</h3>
+                <div id="myApplications" class="data-table"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- MODALS -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 id="modalTitle">Formulario</h3>
+            <div id="modalBody"></div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="closeModal">Cancelar</button>
+                <button class="btn btn-primary" id="saveModal">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+
+</html>
