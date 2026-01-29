@@ -1,11 +1,170 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fundación Alas al Futuro - Inicio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .hero {
+            padding: 8rem 2rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--p-700), var(--s-600), var(--a-600));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-muted);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            background: var(--bg-card);
+            backdrop-filter: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--p-700);
+        }
+
+        .cta-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: rgba(79, 70, 229, 0.05);
+            margin: 4rem -2rem -4rem;
+        }
+
+        .nav-landing {
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-landing {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div class="mouse-glow"></div>
+    <div class="extra-blob"></div>
+
+    <nav class="nav-landing">
+        <div class="nav-brand">
+            <img src="../assets/logo.png" alt="Logo" class="nav-logo" style="height: 50px;">
+            <span
+                style="font-weight: 800; font-size: 1.5rem; background: linear-gradient(to right, var(--p-700), var(--s-600)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Alas
+                al Futuro</span>
+        </div>
+        <div>
+            <a href="login.html" class="btn btn-primary">Iniciar Sesión</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero animate-fade">
+            <h1>Transforma tu futuro con una beca</h1>
+            <p>En Fundación Alas al Futuro, creemos que el talento no tiene fronteras. Impulsamos tus sueños académicos
+                con el respaldo que necesitas para volar alto.</p>
+            <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="login.html" class="btn btn-primary btn-large">Postularse Ahora</a>
+                <a href="contact.html" class="btn btn-outline btn-large">Saber Más</a>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Excelencia Académica</h3>
+                    <p>Reconocemos y premiamos el esfuerzo constante y los resultados sobresalientes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Impacto Social</h3>
+                    <p>Apoyamos a estudiantes con gran potencial y recursos limitados para cerrar brechas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Gestión Rápida</h3>
+                    <p>Proceso de postulación 100% digital, transparente y eficiente.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Cientos de oportunidades te esperan</h2>
+            <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem;">Únete a nuestra comunidad de
+                becados y sé parte del cambio.</p>
+            <a href="login.html" class="btn btn-primary btn-large">Crear Cuenta Gratis</a>
+        </section>
+    </main>
+
+    <footer
+        style="padding: 4rem 2rem; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 4rem;">
+        <p>&copy; 2026 Fundación Alas al Futuro. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
 </body>
+
 </html>
