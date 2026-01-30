@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -22,6 +22,11 @@
                 style="font-weight: 800; font-size: 1.5rem; background: linear-gradient(to right, var(--p-700), var(--s-600)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Alas
                 al Futuro</span>
         </div>
+        <div class="nav-links">
+            <a href="#mision" class="nav-link">Misión</a>
+            <a href="#vision" class="nav-link">Visión</a>
+            <a href="#historia" class="nav-link">Historia</a>
+        </div>
         <div>
             <a href="login.html" class="btn btn-primary">Iniciar Sesión</a>
         </div>
@@ -34,7 +39,6 @@
                 con el respaldo que necesitas para volar alto.</p>
             <div style="display: flex; gap: 1.5rem; justify-content: center;">
                 <a href="login.html" class="btn btn-primary btn-large">Postularse Ahora</a>
-                <a href="contact.html" class="btn btn-outline btn-large">Saber Más</a>
             </div>
 
             <div class="features">
@@ -56,6 +60,103 @@
             </div>
         </section>
 
+        <!-- Nuestra Misión y Visión Section -->
+        <section class="institutional-section animate-fade">
+            <div class="about-grid">
+                <div class="glass-card" id="mision">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Nuestra Misión</h3>
+                    <p>Empoderar a jóvenes con talento a través del acceso a educación de calidad, rompiendo barreras
+                        económicas para construir un futuro más brillante y equitativo.</p>
+                </div>
+                <div class="glass-card" id="vision">
+                    <div class="feature-icon">👁️</div>
+                    <h3>Nuestra Visión</h3>
+                    <p>Ser la fundación líder en Latinoamérica en transformación social a través de la educación,
+                        creando una comunidad de líderes éticos y comprometidos con el cambio.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nuestra Historia Section -->
+        <section class="history-section animate-fade" id="historia">
+            <div class="glass-card full-width">
+                <div class="feature-icon">📖</div>
+                <h3>Nuestra Historia</h3>
+                <p>Fundada en 2010, Alas al Futuro nació con el propósito de dar una oportunidad a quienes tienen el
+                    deseo de superarse pero carecen de los medios. Lo que comenzó como un pequeño fondo local se ha
+                    convertido en una red nacional de apoyo.</p>
+                <p style="margin-top: 1rem;">Hoy, más de 500 becados han transformado sus vidas y las de sus familias,
+                    convirtiéndose en profesionales destacados en diversas áreas de la ciencia, el arte y la tecnología.
+                </p>
+            </div>
+        </section>
+
+        <!-- Success Stories Carousel Section -->
+        <section class="success-stories">
+            <h2
+                style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; background: linear-gradient(to right, var(--p-700), var(--s-600)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                Historias de Éxito</h2>
+            <div class="carousel-container">
+                <button class="carousel-btn prev-btn" id="prevBtn">&#10094;</button>
+                <div class="carousel-track-container">
+                    <ul class="carousel-track">
+                        <li class="carousel-slide current-slide">
+                            <div class="testimonial-card">
+                                <div class="quote-icon">“</div>
+                                <p class="testimonial-text">Gracias a la beca Alas al Futuro, pude terminar mi carrera
+                                    en Ingeniería sin preocuparme por los gastos. Hoy trabajo en una empresa líder de
+                                    tecnología.</p>
+                                <div class="testimonial-author">
+                                    <img src="../Imagenes/profile_ana.png" alt="Ana Garcia" class="author-img">
+                                    <div class="author-info">
+                                        <h4>Ana Garcia</h4>
+                                        <p>Ingeniería de Sistemas - Egresada</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="carousel-slide">
+                            <div class="testimonial-card">
+                                <div class="quote-icon">“</div>
+                                <p class="testimonial-text">El apoyo no fue solo económico, sino también mentoría. Me
+                                    ayudaron a creer en mi potencial y a alcanzar mis metas académicas más ambiciosas.
+                                </p>
+                                <div class="testimonial-author">
+                                    <img src="../Imagenes/profile_carlos.png" alt="Carlos Mendez" class="author-img">
+                                    <div class="author-info">
+                                        <h4>Carlos Mendez</h4>
+                                        <p>Medicina - Estudiante de 4to año</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="carousel-slide">
+                            <div class="testimonial-card">
+                                <div class="quote-icon">“</div>
+                                <p class="testimonial-text">Una oportunidad única que cambió mi vida por completo.
+                                    Recomiendo a todos los estudiantes aplicar y formar parte de esta gran comunidad.
+                                </p>
+                                <div class="testimonial-author">
+                                    <img src="../Imagenes/profile_laura.png" alt="Laura Torres" class="author-img">
+                                    <div class="author-info">
+                                        <h4>Laura Torres</h4>
+                                        <p>Arquitectura - Egresada</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="carousel-btn next-btn" id="nextBtn">&#10095;</button>
+            </div>
+            <div class="carousel-nav">
+                <button class="carousel-indicator current-slide"></button>
+                <button class="carousel-indicator"></button>
+                <button class="carousel-indicator"></button>
+            </div>
+        </section>
+
         <section class="cta-section">
             <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Cientos de oportunidades te esperan</h2>
             <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem;">Únete a nuestra comunidad de
@@ -66,6 +167,13 @@
 
     <footer
         style="padding: 4rem 2rem; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 4rem;">
+        <img src="../Imagenes/selloCalidad.png" alt="Sello de Calidad" style="width: 100px; height: 100px;">
+        <div class="footer-socials" style="margin-bottom: 1.5rem; display: flex; justify-content: center; gap: 1.5rem;">
+            <a href="#" class="social-icon" title="Facebook">Facebook</a>
+            <a href="#" class="social-icon" title="Twitter">Twitter</a>
+            <a href="#" class="social-icon" title="Instagram">Instagram</a>
+            <a href="#" class="social-icon" title="LinkedIn">LinkedIn</a>
+        </div>
         <p>&copy; 2026 Fundación Alas al Futuro. Todos los derechos reservados.</p>
     </footer>
 

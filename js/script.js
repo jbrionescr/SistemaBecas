@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const userData = {
                 fullName: document.getElementById('regFullname').value,
+                age: document.getElementById('regAge').value,
                 username: document.getElementById('regUsername').value,
                 role: document.getElementById('regRole').value,
                 password: pass
@@ -75,6 +76,64 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 alert(error.message);
             }
+        });
+    }
+
+    // --- Carousel Logic ---
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track ? track.children : []);
+    const nextButton = document.querySelector('.next-btn');
+    const prevButton = document.querySelector('.prev-btn');
+    const dotsNav = document.querySelector('.carousel-nav');
+    const dots = Array.from(dotsNav ? dotsNav.children : []);
+
+    let currentSlideIndex = 0;
+
+    const updateSlidePosition = (index) => {
+        if (!track) return;
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+
+        currentSlideIndex = index;
+        const amountToMove = -100 * currentSlideIndex;
+        track.style.transform = `translateX(${amountToMove}%)`;
+
+        // Update dots
+        dots.forEach(d => d.classList.remove('current-slide'));
+        if (dots[currentSlideIndex]) dots[currentSlideIndex].classList.add('current-slide');
+    };
+
+    if (nextButton && prevButton) {
+        nextButton.addEventListener('click', () => {
+            updateSlidePosition(currentSlideIndex + 1);
+        });
+
+        prevButton.addEventListener('click', () => {
+            updateSlidePosition(currentSlideIndex - 1);
+        });
+    }
+
+    if (dotsNav) {
+        dotsNav.addEventListener('click', e => {
+            const targetDot = e.target.closest('button');
+            if (!targetDot) return;
+            const targetIndex = dots.indexOf(targetDot);
+            updateSlidePosition(targetIndex);
+        });
+    }
+
+    // Auto-play
+    let autoPlayInterval = setInterval(() => {
+        updateSlidePosition(currentSlideIndex + 1);
+    }, 5000);
+
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+        carouselContainer.addEventListener('mouseleave', () => {
+            autoPlayInterval = setInterval(() => {
+                updateSlidePosition(currentSlideIndex + 1);
+            }, 5000);
         });
     }
 });
