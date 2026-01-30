@@ -24,8 +24,24 @@ const Storage = {
                 this.save(this.KEYS.USERS, users);
             }
         }
+//BECA CARGADA DE FORMA PREDETERMINADA, LAS DEMAS SE AGREGARAN DESDE LA PAGINA DE ADMINISTRADOR
+        let scholarships = this.get(this.KEYS.SCHOLARSHIPS);
+        if (scholarships.length === 0) {
+            const defaultSocial = {
+                id: 'beca-social-001',
+                name: 'Beca de Apoyo Social',
+                type: 'Social',
+                description: 'Destinada a estudiantes con alta vulnerabilidad económica y compromiso social.',
+                startDate: new Date().toISOString().split('T')[0],
+                deadline: '2026-12-31',
+                status: 'Abierta',
+                requirements: 'Ingresos familiares mínimos, carta de motivación, residencia comprobada.',
+                amount: 3500
+            };
+            scholarships.push(defaultSocial);
+            this.save(this.KEYS.SCHOLARSHIPS, scholarships);
+        }
 
-        if (!localStorage.getItem(this.KEYS.SCHOLARSHIPS)) this.save(this.KEYS.SCHOLARSHIPS, []);
         if (!localStorage.getItem(this.KEYS.APPLICATIONS)) this.save(this.KEYS.APPLICATIONS, []);
         if (!localStorage.getItem(this.KEYS.LOGS)) this.save(this.KEYS.LOGS, []);
         if (!localStorage.getItem(this.KEYS.MESSAGES)) this.save(this.KEYS.MESSAGES, []);
