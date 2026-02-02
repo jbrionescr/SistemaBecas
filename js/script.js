@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const age = parseInt(document.getElementById('regAge').value);
-            if (isNaN(age) || age <= 17) {
+            if (isNaN(age) || age <= 16) {
                 return alert('Debes ser mayor de 17 años para registrarte.');
             }
 
