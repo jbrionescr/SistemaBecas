@@ -27,11 +27,11 @@
         <form id="loginForm">
             <div class="form-group">
                 <label for="username">Nombre de Usuario</label>
-                <input type="text" id="username" class="form-input" required placeholder="ej. admin">
+                <input type="text" id="username" class="form-input" placeholder="ej. admin">
             </div>
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" class="form-input" required placeholder="••••••••">
+                <input type="password" id="password" class="form-input" placeholder="••••••••">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
             <p style="text-align: center; margin-top: 1.5rem; font-size: 0.875rem;">
@@ -48,31 +48,40 @@
         <form id="registerForm" class="hidden">
             <div class="form-group">
                 <label for="regFullname">Nombre Completo</label>
-                <input type="text" id="regFullname" class="form-input" required placeholder="Juan Pérez">
+                <input type="text" id="regFullname" class="form-input" placeholder="Juan Pérez">
             </div>
             <div class="form-group">
                 <label for="regAge">Edad</label>
-                <input type="number" id="regAge" class="form-input" required placeholder="Ej. 20" min="10" max="100">
+                <input type="number" id="regAge" class="form-input" placeholder="Ej. 20" min="10" max="100">
             </div>
             <div class="form-group">
                 <label for="regUsername">Nombre de Usuario</label>
-                <input type="text" id="regUsername" class="form-input" required placeholder="juanp">
+                <input type="text" id="regUsername" class="form-input" placeholder="juanp">
             </div>
             <div class="form-group">
                 <label for="regRole">Tipo de Usuario</label>
-                <select id="regRole" class="form-input" required>
+                <select id="regRole" class="form-input">
                     <option value="student">Estudiante (Postulante)</option>
-                    <option value="evaluator">Evaluador</option>
-                    <option value="admin">Administrador</option>
+                    <!--  <option value="evaluador">Evaluador</option>
+                    <option value="admin">Administrador</option> -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="regGender">Género</label>
+                <select id="regGender" class="form-input">
+                    <option value="">Seleccione...</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="O">Otro</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="regPassword">Contraseña</label>
-                <input type="password" id="regPassword" class="form-input" required placeholder="••••••••">
+                <input type="password" id="regPassword" class="form-input" placeholder="••••••••">
             </div>
             <div class="form-group">
                 <label for="regPasswordConfirm">Confirmar Contraseña</label>
-                <input type="password" id="regPasswordConfirm" class="form-input" required placeholder="••••••••">
+                <input type="password" id="regPasswordConfirm" class="form-input" placeholder="••••••••">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
             <p style="text-align: center; margin-top: 1.5rem; font-size: 0.875rem;">

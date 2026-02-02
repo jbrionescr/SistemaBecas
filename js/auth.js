@@ -10,7 +10,7 @@ const Auth = {
             id: 'user-' + Date.now(),
             ...userData
         };
-
+//registro de usuarios
         users.push(newUser);
         Storage.save(Storage.KEYS.USERS, users);
         Storage.addLog('USER_REGISTERED', newUser.id, `Usuario ${newUser.username} registrado`);

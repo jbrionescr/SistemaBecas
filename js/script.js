@@ -60,11 +60,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 return alert('Las contraseñas no coinciden');
             }
 
+            const age = parseInt(document.getElementById('regAge').value);
+            if (isNaN(age) || age <= 17) {
+                return alert('Debes ser mayor de 17 años para registrarte.');
+            }
+
             const userData = {
                 fullName: document.getElementById('regFullname').value,
-                age: document.getElementById('regAge').value,
+                age: age,
                 username: document.getElementById('regUsername').value,
                 role: document.getElementById('regRole').value,
+                gender: document.getElementById('regGender').value,
                 password: pass
             };
 

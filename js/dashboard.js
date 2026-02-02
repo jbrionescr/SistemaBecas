@@ -116,7 +116,7 @@ function renderReportsTable(scholarships, applications) {
                 ${scholarships.map(b => {
         const apps = applications.filter(a => a.becaId === b.id);
         const approved = apps.filter(a => a.status === 'Aprobada').length;
-        const pending = apps.filter(a => a.status === 'Pendiente').length;
+        const pending = apps.filter(a => a.status === 'Revision').length;
         const committed = approved * parseFloat(b.amount);
 
         return `
@@ -219,7 +219,7 @@ function openScholarshipModal(id = null) {
         </div>
         <div class="form-group">
             <label>Requisitos y Criterios</label>
-            <textarea id="becaRequirements" class="form-input" rows="3" placeholder="Promedio > 9.0...">${beca ? (beca.requirements || '') : ''}</textarea>
+            <textarea id="becaRequirements" class="form-input" rows="3" placeholder="Promedio > 90">${beca ? (beca.requirements || '') : ''}</textarea>
         </div>
     `;
 
@@ -270,6 +270,7 @@ function renderEvaluatorManagement() {
     container.innerHTML = `
         <div class="view-header" style="margin-top: 2rem">
             <h4>Listado de Evaluadores</h4>
+            <button class="btn btn-sm btn-primary" onclick="openCreateEvaluatorModal()">Crear Nuevo Evaluador</button>
         </div>
         <div class="data-table">
             <table style="width: 100%; border-collapse: collapse;">
@@ -277,6 +278,7 @@ function renderEvaluatorManagement() {
                     <tr>
                         <th style="padding: 1rem; text-align: left;">Nombre</th>
                         <th style="padding: 1rem; text-align: left;">Usuario</th>
+                        <th style="padding: 1rem; text-align: left;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -284,13 +286,74 @@ function renderEvaluatorManagement() {
                         <tr style="border-top: 1px solid var(--border)">
                             <td style="padding: 1rem;">${u.fullName}</td>
                             <td style="padding: 1rem;">${u.username}</td>
+                            <td style="padding: 1rem;">
+                                <button class="btn btn-sm btn-outline" style="color: var(--danger)" onclick="deleteEvaluator('${u.id}')">Eliminar</button>
+                            </td>
                         </tr>
-                    `).join('') || '<tr><td colspan="2" style="padding: 1rem; text-align: center;">No hay evaluadores registrados.</td></tr>'}
+                    `).join('') || '<tr><td colspan="3" style="padding: 1rem; text-align: center;">No hay evaluadores registrados.</td></tr>'}
                 </tbody>
             </table>
         </div>
     `;
 }
+
+window.openCreateEvaluatorModal = () => {
+    const modal = document.getElementById('modalOverlay');
+    const modalBody = document.getElementById('modalBody');
+    const saveBtn = document.getElementById('saveModal');
+
+    document.getElementById('modalTitle').textContent = 'Registrar Nuevo Evaluador';
+    modalBody.innerHTML = `
+        <div class="form-group">
+            <label>Nombre Completo</label>
+            <input type="text" id="evalName" class="form-input" placeholder="Juan Perez">
+        </div>
+        <div class="form-group">
+            <label>Nombre de Usuario</label>
+            <input type="text" id="evalUsername" class="form-input" placeholder="juan.evaluator">
+        </div>
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="evalPassword" class="form-input" placeholder="********">
+        </div>
+    `;
+
+    modal.classList.remove('hidden');
+
+    saveBtn.onclick = () => {
+        const fullName = document.getElementById('evalName').value;
+        const username = document.getElementById('evalUsername').value;
+        const password = document.getElementById('evalPassword').value;
+
+        if (!fullName || !username || !password) {
+            return alert('Todos los campos son obligatorios');
+        }
+
+        try {
+            Auth.register({
+                fullName,
+                username,
+                password,
+                role: 'evaluator'
+            });
+            alert('Evaluador registrado con éxito');
+            modal.classList.add('hidden');
+            renderEvaluatorManagement();
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+};
+
+window.deleteEvaluator = (userId) => {
+    if (confirm('¿Estás seguro de que deseas eliminar este evaluador?')) {
+        let users = Storage.get(Storage.KEYS.USERS);
+        users = users.filter(u => u.id !== userId);
+        Storage.save(Storage.KEYS.USERS, users);
+        Storage.addLog('USER_DELETED', Auth.getCurrentUser().id, `Evaluador eliminado: ${userId}`);
+        renderEvaluatorManagement();
+    }
+};
 
 function renderAllApplicationsAdmin(applications) {
     const container = document.getElementById('adminApplicationsList');
@@ -322,7 +385,7 @@ function renderAllApplicationsAdmin(applications) {
                         <td style="padding: 1rem;">${a.becaName}</td>
                         <td style="padding: 1rem;">${new Date(a.date).toLocaleDateString()}</td>
                         <td style="padding: 1rem;">
-                            <span class="badge" style="background: ${getStatusColor(a.status)}; color: white">${a.status}</span>
+                            <span class="badge" style="background: ${getStatusColor(a.status)}; color: black">${a.status}</span>
                         </td>
                         <td style="padding: 1rem;">
                             <button class="btn btn-sm btn-outline" onclick="viewApplicationDetail('${a.id}')">Ver Detalle</button>
@@ -333,7 +396,7 @@ function renderAllApplicationsAdmin(applications) {
         </table>
     `;
 }
-
+//abre la ventana con los detalles de la postulacion
 window.viewApplicationDetail = (appId) => {
     const applications = Storage.get(Storage.KEYS.APPLICATIONS);
     const app = applications.find(a => a.id === appId);
@@ -350,7 +413,7 @@ window.viewApplicationDetail = (appId) => {
         <div style="font-size: 0.9rem;">
             <div style="background: var(--bg-main); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
                 <p><strong>Estudiante:</strong> ${app.studentName}</p>
-                <p><strong>ID:</strong> ${app.studentID} | <strong>Email/Usuario:</strong> ${app.studentId}</p>
+                <p><strong>ID:</strong> ${app.studentID}</p>
                 <p><strong>Beca:</strong> ${app.becaName}</p>
                 <p><strong>Fecha:</strong> ${new Date(app.date).toLocaleString()}</p>
             </div>
@@ -367,7 +430,6 @@ window.viewApplicationDetail = (appId) => {
             ${app.score ? `
                 <div style="background: var(--primary-50); padding: 1rem; border-radius: 0.5rem;">
                     <p><strong>Puntaje:</strong> ${app.score}/100</p>
-                    <p><strong>Evaluador:</strong> ${app.evaluatorId}</p>
                     <p><strong>Comentarios:</strong> ${app.comments}</p>
                 </div>
             ` : '<p style="color: var(--warning)"><em>Pendiente de evaluación</em></p>'}
@@ -444,7 +506,7 @@ function renderStudentDashboard() {
                             <td style="padding: 1rem;">${a.becaName}</td>
                             <td style="padding: 1rem;">${new Date(a.date).toLocaleDateString()}</td>
                             <td style="padding: 1rem;">
-                                <span class="badge" style="background: ${getStatusColor(a.status)}; color: white">${a.status}</span>
+                                <span class="badge" style="background: ${getStatusColor(a.status)}; color: black">${a.status}</span>
                             </td>
                             <td style="padding: 1rem; font-weight: 600;">${a.score || '-'}</td>
                             <td style="padding: 1rem; font-size: 0.85rem; color: var(--text-muted); max-width: 300px;">
@@ -476,7 +538,7 @@ window.applyScholarship = (becaId, becaName) => {
         return alert('Ya te has postulado a esta beca.');
     }
 
-    // Open detailed form
+    // Detalles del formulario de estudiante
     const modal = document.getElementById('modalOverlay');
     const modalBody = document.getElementById('modalBody');
     const saveBtn = document.getElementById('saveModal');
@@ -485,12 +547,12 @@ window.applyScholarship = (becaId, becaName) => {
     modalBody.innerHTML = `
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div class="form-group">
-                <label>Documento de Identidad (DNI/ID)</label>
-                <input type="text" id="appID" class="form-input" placeholder="12345678X">
+                <label>Documento de Identidad</label>
+                <input type="text" id="appID" class="form-input" placeholder="123456789">
             </div>
             <div class="form-group">
                 <label>Teléfono de Contacto</label>
-                <input type="tel" id="appPhone" class="form-input" placeholder="+54 11 ...">
+                <input type="tel" id="appPhone" class="form-input" placeholder="+506 56...">
             </div>
         </div>
         <div class="form-group">
@@ -500,8 +562,8 @@ window.applyScholarship = (becaId, becaName) => {
         <div class="form-group">
             <label>Nivel Educativo Actual</label>
             <select id="appEducationLevel" class="form-input">
-                <option value="Secundario">Secundario</option>
-                <option value="Terciario">Terciario</option>
+                <option value="Secundario">Primaria</option>
+                <option value="Terciario">Secundario</option>
                 <option value="Universitario">Universitario</option>
                 <option value="Posgrado">Posgrado</option>
             </select>
@@ -564,7 +626,7 @@ window.applyScholarship = (becaId, becaName) => {
         renderStudentDashboard();
     };
 };
-
+//esta funcion creo que no esta haciendo nada
 function getStatusColor(status) {
     if (status === 'Enviada') return 'var(--info)';
     if (status === 'En revisión') return 'var(--warning)';
@@ -595,14 +657,14 @@ function renderEvaluatorDashboard() {
                     <th style="padding: 1rem; text-align: left;">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                ${applications.map(a => {
+            <tbody> 
+                ${applications.map(a => { //vista de evaluador el estado de la beca es gris
         const beca = scholarships.find(b => b.id === a.becaId);
         return `
                         <tr style="border-top: 1px solid var(--border)">
                             <td style="padding: 1rem;">${a.studentName}</td>
                             <td style="padding: 1rem;">${a.becaName}</td>
-                            <td style="padding: 1rem;"><span class="badge" style="background: ${getStatusColor(a.status)}; color: white">${a.status}</span></td>
+                            <td style="padding: 1rem;"><span class="badge" style="background: ${getStatusColor(a.status)}; color: black">${a.status}</span></td>
                             <td style="padding: 1rem; font-size: 0.8rem; max-width: 200px;">
                                 ${beca ? (beca.requirements || 'N/A') : 'N/A'}
                             </td>
@@ -617,37 +679,37 @@ function renderEvaluatorDashboard() {
     `;
 }
 
-window.openEvaluationModal = (appId) => {
+window.openEvaluationModal = (appId) => { //se abre el modal de evaluacion
     const modal = document.getElementById('modalOverlay');
     const modalBody = document.getElementById('modalBody');
     const saveBtn = document.getElementById('saveModal');
 
     let applications = Storage.get(Storage.KEYS.APPLICATIONS);
-    const index = applications.findIndex(a => a.id === appId);
+    const index = applications.findIndex(a => a.id === appId); //se busca el indice de la solicitud
     const app = applications[index];
 
-    // RULE: An approved or rejected application cannot be modified
+    // Regla: Una solicitud aprobada o rechazada no puede ser modificada
     if (app.status === 'Aprobada' || app.status === 'Rechazada') {
         return alert('Esta solicitud ya tiene un dictamen final y no puede ser modificada.');
     }
 
-    // RULE: Change status to 'En revisión' if it's 'Enviada'
-    if (app.status === 'Enviada') {
+    // Regla: Cambiar estado a 'En revisión' si es 'Enviada'
+    if (app.status === 'Enviada') { //se cambia el estado a "En revisión" si la solicitud es "Enviada"
         applications[index].status = 'En revisión';
         Storage.save(Storage.KEYS.APPLICATIONS, applications);
         renderEvaluatorDashboard();
     }
 
-    modalBody.innerHTML = `
+    modalBody.innerHTML = ` 
         <div style="background: var(--bg-main); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; font-size: 0.85rem; max-height: 200px; overflow-y: auto; border: 1px solid var(--border);">
             <p><strong>Estudiante:</strong> ${app.studentName}</p>
             <p><strong>ID:</strong> ${app.studentID} | <strong>Nivel:</strong> ${app.educationLevel}</p>
             <hr style="margin: 0.5rem 0; border: 0; border-top: 1px solid var(--border);">
-            <p><strong>Situación:</strong> ${app.socioEconomic}</p>
+            <p><strong>Situación:</strong> ${app.socioEconomic}</p> 
             <p><strong>Motivo:</strong> ${app.motivation}</p>
         </div>
         
-        <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;">Criterios de Evaluación (Weighted)</p>
+        <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;">Criterios de Evaluación</p>
         <div class="form-group">
             <label>Situación Económica (Máx 40 pts)</label>
             <input type="number" id="scoreSocio" class="form-input score-input" min="0" max="40" value="0">
@@ -671,8 +733,9 @@ window.openEvaluationModal = (appId) => {
         <div class="form-group">
             <label>Recomendación Final</label>
             <select id="evalStatus" class="form-input">
-                <option value="Aprobada">Recomendar Aprobación</option>
-                <option value="Rechazada">Recomendar Rechazo</option>
+                <option value="Aprobada">Apta</option>
+                <option value="Revision">En Revisión</option>
+                <option value="Rechazada">No Apta</option>
             </select>
         </div>
         <div class="form-group">
@@ -681,53 +744,58 @@ window.openEvaluationModal = (appId) => {
         </div>
     `;
 
-    modal.classList.remove('hidden');
+    modal.classList.remove('hidden'); //se quita el hidden para que se muestre el modal
 
     // Auto-calculate logic
-    const scoreInputs = modalBody.querySelectorAll('.score-input');
-    const totalDisplay = document.getElementById('totalScoreCalc');
+    const scoreInputs = modalBody.querySelectorAll('.score-input'); //se seleccionan los inputs de puntaje
+    const totalDisplay = document.getElementById('totalScoreCalc'); //se selecciona el display de puntaje total
 
-    const calculateTotal = () => {
+    const calculateTotal = () => { //se calcula el puntaje total
         const socio = parseFloat(document.getElementById('scoreSocio').value) || 0;
         const acad = parseFloat(document.getElementById('scoreAcad').value) || 0;
         const social = parseFloat(document.getElementById('scoreSocial').value) || 0;
 
-        const total = (socio + acad + social).toFixed(0);
+        const total = (socio + acad + social).toFixed(0); //se suma el puntaje total
         totalDisplay.textContent = total;
         return total;
     };
 
-    scoreInputs.forEach(input => input.oninput = calculateTotal);
+    scoreInputs.forEach(input => input.oninput = calculateTotal); //se calcula el puntaje total al cambiar el valor de los inputs
 
-    saveBtn.onclick = () => {
-        const totalScore = calculateTotal();
+    saveBtn.onclick = () => { //se guarda el puntaje total
+        const totalScore = parseFloat(calculateTotal());
         const status = document.getElementById('evalStatus').value;
         const comments = document.getElementById('evalComments').value;
 
-        let applications = Storage.get(Storage.KEYS.APPLICATIONS);
-        const index = applications.findIndex(a => a.id === appId);
-
-        if (index !== -1) {
-            applications[index] = {
-                ...applications[index],
-                status: status,
-                score: totalScore,
-                scoreDetails: {
-                    socio: document.getElementById('scoreSocio').value,
-                    academic: document.getElementById('scoreAcad').value,
-                    social: document.getElementById('scoreSocial').value
-                },
-                comments: comments,
-                evaluatorId: Auth.getCurrentUser().id,
-                evaluationDate: new Date().toISOString()
-            };
-
-            Storage.save(Storage.KEYS.APPLICATIONS, applications);
-            Storage.addLog('APPLICATION_EVALUATED', Auth.getCurrentUser().id, `Evaluación finalizada para ${appId}: ${status} (${totalScore})`);
+        // Validation: Score > 70 for Approval
+        if (status === 'Aprobada' && totalScore <= 70) {
+            return alert('Para aprobar una beca, el puntaje total debe ser mayor a 70.');
         }
 
-        modal.classList.add('hidden');
-        renderEvaluatorDashboard();
+        let applications = Storage.get(Storage.KEYS.APPLICATIONS); //se obtienen las aplicaciones
+        const index = applications.findIndex(a => a.id === appId); //se busca el indice de la aplicacion
+
+        if (index !== -1) { //si se encuentra la aplicacion
+            applications[index] = { //se actualiza la aplicacion
+                ...applications[index], //se actualiza la aplicacion
+                status: status, //se actualiza el estado
+                score: totalScore, //se actualiza el puntaje
+                scoreDetails: { //se actualiza el puntaje
+                    socio: document.getElementById('scoreSocio').value, //se actualiza el puntaje socioeconomico
+                    academic: document.getElementById('scoreAcad').value, //se actualiza el puntaje academico
+                    social: document.getElementById('scoreSocial').value //se actualiza el puntaje social
+                },
+                comments: comments, //se actualizan los comentarios
+                evaluatorId: Auth.getCurrentUser().id, //se actualiza el id del evaluador
+                evaluationDate: new Date().toISOString() //se actualiza la fecha de evaluacion
+            };
+
+            Storage.save(Storage.KEYS.APPLICATIONS, applications); //se guardan las aplicaciones
+            Storage.addLog('APPLICATION_EVALUATED', Auth.getCurrentUser().id, `Evaluación finalizada para ${appId}: ${status} (${totalScore})`); //se agrega el log de la evaluacion
+        }
+
+        modal.classList.add('hidden'); //se oculta el modal
+        renderEvaluatorDashboard(); //se renderiza el dashboard del evaluador
     };
 };
 
@@ -764,7 +832,7 @@ function renderMessagesAdmin() {
                         <td>${m.subject}</td>
                         <td>
                             <div class="actions">
-                                <button class="btn btn-sm btn-outline" onclick="viewMessageDetail(${m.id})">Leer</button>
+                                <button class="btn btn-sm btn-outline" onclick="viewMessageDetail('${m.id}')">Leer</button>
                                 <button class="btn btn-sm btn-outline" style="color: var(--danger)" onclick="deleteMessage(${m.id})">Eliminar</button>
                             </div>
                         </td>
@@ -783,7 +851,7 @@ function viewMessageDetail(id) {
     const modal = document.getElementById('modalOverlay');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
-    const saveBtn = document.getElementById('modalSaveBtn');
+    const saveBtn = document.getElementById('saveModal');
 
     modalTitle.textContent = 'Detalle de Mensaje';
     saveBtn.classList.add('hidden');
@@ -801,7 +869,6 @@ function viewMessageDetail(id) {
 
     modal.classList.remove('hidden');
 }
-
 function deleteMessage(id) {
     if (confirm('¿Estás seguro de eliminar este mensaje?')) {
         let messages = Storage.get(Storage.KEYS.MESSAGES);

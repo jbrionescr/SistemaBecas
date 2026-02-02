@@ -12,20 +12,17 @@
 </head>
 
 <body>
-    <div class="mouse-glow"></div>
-    <div class="extra-blob"></div>
 
     <nav class="nav-landing">
         <div class="nav-brand">
             <img src="../Imagenes/logo.png" alt="Logo" class="nav-logo" style="height: 50px;">
-            <span
-                style="font-weight: 800; font-size: 1.5rem; background: linear-gradient(to right, var(--p-700), var(--s-600)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Alas
+            <span class>Alas
                 al Futuro</span>
         </div>
         <div class="nav-links">
-            <a href="#mision" class="nav-link">Misión</a>
-            <a href="#vision" class="nav-link">Visión</a>
-            <a href="#historia" class="nav-link">Historia</a>
+            <a href="#nosotros" class="nav-link">Nosotros</a>
+            <a href="#exitos" class="nav-link">Historias de Exito</a>
+            <a href="#encuentranos" class="nav-link">Encuéntranos</a>
         </div>
         <div>
             <a href="login.html" class="btn btn-primary">Iniciar Sesión</a>
@@ -37,12 +34,9 @@
             <h1>Transforma tu futuro con una beca</h1>
             <p>En Fundación Alas al Futuro, creemos que el talento no tiene fronteras. Impulsamos tus sueños académicos
                 con el respaldo que necesitas para volar alto.</p>
-            <div style="display: flex; gap: 1.5rem; justify-content: center;">
-                <a href="login.html" class="btn btn-primary btn-large">Postularse Ahora</a>
-            </div>
 
             <div class="features">
-                <div class="feature-card">
+                <div class="feature-card" id="nosotros">
                     <div class="feature-icon">🎓</div>
                     <h3>Excelencia Académica</h3>
                     <p>Reconocemos y premiamos el esfuerzo constante y los resultados sobresalientes.</p>
@@ -63,39 +57,35 @@
         <!-- Nuestra Misión y Visión Section -->
         <section class="institutional-section animate-fade">
             <div class="about-grid">
-                <div class="glass-card" id="mision">
+                <div class="glass-card">
                     <div class="feature-icon">🎯</div>
                     <h3>Nuestra Misión</h3>
                     <p>Empoderar a jóvenes con talento a través del acceso a educación de calidad, rompiendo barreras
                         económicas para construir un futuro más brillante y equitativo.</p>
                 </div>
-                <div class="glass-card" id="vision">
+                <div class="glass-card">
                     <div class="feature-icon">👁️</div>
                     <h3>Nuestra Visión</h3>
                     <p>Ser la fundación líder en Latinoamérica en transformación social a través de la educación,
                         creando una comunidad de líderes éticos y comprometidos con el cambio.</p>
                 </div>
+                <div class="glass-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>Nuestra Historia</h3>
+                    <p>Fundada en 2010, Alas al Futuro nació con el propósito de dar una oportunidad a quienes tienen el
+                        deseo de superarse pero carecen de los medios. Lo que comenzó como un pequeño fondo local se ha
+                        convertido en una red nacional de apoyo.</p>
+                    <p style="margin-top: 1rem;">Hoy, más de 500 becados han transformado sus vidas y las de sus
+                        familias,
+                        convirtiéndose en profesionales destacados en diversas áreas de la ciencia, el arte y la
+                        tecnología.
+                    </p>
+                </div>
             </div>
         </section>
 
-        <!-- Nuestra Historia Section -->
-        <section class="history-section animate-fade" id="historia">
-            <div class="glass-card full-width">
-                <div class="feature-icon">📖</div>
-                <h3>Nuestra Historia</h3>
-                <p>Fundada en 2010, Alas al Futuro nació con el propósito de dar una oportunidad a quienes tienen el
-                    deseo de superarse pero carecen de los medios. Lo que comenzó como un pequeño fondo local se ha
-                    convertido en una red nacional de apoyo.</p>
-                <p style="margin-top: 1rem;">Hoy, más de 500 becados han transformado sus vidas y las de sus familias,
-                    convirtiéndose en profesionales destacados en diversas áreas de la ciencia, el arte y la tecnología.
-                </p>
-            </div>
-        </section>
-
-        <!-- Success Stories Carousel Section -->
         <section class="success-stories">
-            <h2
-                style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; background: linear-gradient(to right, var(--p-700), var(--s-600)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+            <h2 id="exitos">
                 Historias de Éxito</h2>
             <div class="carousel-container">
                 <button class="carousel-btn prev-btn" id="prevBtn">&#10094;</button>
@@ -138,7 +128,7 @@
                                     Recomiendo a todos los estudiantes aplicar y formar parte de esta gran comunidad.
                                 </p>
                                 <div class="testimonial-author">
-                                    <img src="../Imagenes/profile_laura.png" alt="Laura Torres" class="author-img">
+                                    <img src="../Imagenes/profile_laura.jpg" alt="Laura Torres" class="author-img">
                                     <div class="author-info">
                                         <h4>Laura Torres</h4>
                                         <p>Arquitectura - Egresada</p>
@@ -155,20 +145,56 @@
                 <button class="carousel-indicator"></button>
                 <button class="carousel-indicator"></button>
             </div>
-        </section>
 
-        <section class="cta-section">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Cientos de oportunidades te esperan</h2>
-            <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem;">Únete a nuestra comunidad de
-                becados y sé parte del cambio.</p>
-            <a href="login.html" class="btn btn-primary btn-large">Crear Cuenta Gratis</a>
-        </section>
+            <section class="cta-section" id="encuentranos">
+                <div class="contact-header">
+                    <h2>Encuéntranos</h2>
+                    <p>Estaremos encantados de escucharte. Visítanos o contáctanos por nuestros canales oficiales.</p>
+                </div>
+
+                <div class="contact-content-grid">
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div>
+                                <h4>Llámanos</h4>
+                                <p><strong>Línea Gratuita:</strong> 800-000-4627</p>
+                                <p><strong>Central:</strong> +506 2202-4000</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">🕒</div>
+                            <div>
+                                <h4>Horario de Atención</h4>
+                                <p>Lunes a Viernes</p>
+                                <p>8:00 a.m. - 5:00 p.m.</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h4>Oficinas Centrales</h4>
+                                <p>Calle la Amistad, 400sur de La Carniceria Don Adrian.</p>
+                                <p>San Rafael Abajo, Desamparados, San José, Costa Rica</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d982.6112679610067!2d-84.08886609093693!3d9.896839321448333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e327adccdca9%3A0x9206e5e07ca3a153!2sIglesia%20de%20la%20Ciudad!5e0!3m2!1ses-419!2scr!4v1769913296914!5m2!1ses-419!2scr"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </section>
     </main>
 
-    <footer
-        style="padding: 4rem 2rem; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 4rem;">
-        <img src="../Imagenes/selloCalidad.png" alt="Sello de Calidad" style="width: 100px; height: 100px;">
-        <div class="footer-socials" style="margin-bottom: 1.5rem; display: flex; justify-content: center; gap: 1.5rem;">
+    <footer>
+        <img src="../Imagenes/selloCalidad.png" alt="Sello de Calidad" class="imgSelloCali">
+        <div class="footer-socials">
             <a href="#" class="social-icon" title="Facebook">Facebook</a>
             <a href="#" class="social-icon" title="Twitter">Twitter</a>
             <a href="#" class="social-icon" title="Instagram">Instagram</a>
